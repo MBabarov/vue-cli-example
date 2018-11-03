@@ -5,8 +5,8 @@
       class="main">
       <section class="jumbotron text-center">
         <div class="container">
-          <h1 align="canter">Users list</h1>
-          <SmartUsersList />
+          <h1 align="canter">Users list poor</h1>
+          <UsersList />
         </div>
       </section>
     </main>
@@ -15,9 +15,9 @@
 
 <script>
 export default {
-  name: 'UsersListPage',
+  name: 'UsersListPagePoor',
   components: {
-    SmartUsersList: () => import('@/components/SmartUsersList')
+    UsersList: () => import('@/components/UsersList')
   }
 }
 </script>

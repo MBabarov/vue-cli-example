@@ -1,12 +1,7 @@
 <template>
-  <div class="hello">
-    <div v-if="loading">Loading...</div>
-    <div v-else class="users">
-      <div class="form-group">
-        <input class="form-control" type="text" v-model="searchFilter" placeholder="Enter name or surname for filtering" />
-      </div>
-      <table class="table">
-        <thead>
+  <div class="users">
+    <table class="table">
+      <thead>
         <tr>
           <th scope="col">#</th>
           <th scope="col">First</th>
@@ -16,52 +11,68 @@
           <th scope="col">Phone</th>
           <th scope="col">Actions</th>
         </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(user, index) in filteredList"  :key="user.id">
-            <td scope="row">{{index+1}}</td>
-            <td>
-              <router-link class="nav-item" :to="{ name: 'user', params: { id: user.id }}">
-                {{user.firstName}}
-              </router-link>
-            </td>
-            <td>{{user.lastName}}</td>
-            <td>{{user.company}}</td>
-            <td>{{user.email}}</td>
-            <td>{{user.phone}}</td>
-            <td>
-              <router-link class="nav-item" :to="{ name: 'user', params: { id: user.id }}">
-                Profile
-              </router-link>
-              <router-link class="nav-item" :to="{ name: 'edit', params: { id: user.id }}">
-                Edit
-              </router-link>
-              <a class="action-link" @click="deleteUser(user)">
-                Delete
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-    </div>
+      </thead>
+      <tbody>
+        <tr
+          v-for="user in currentUsersListByRange"
+          :key="user.id">
+          <td scope="row">{{ user.id }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.company }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.phone }}</td>
+          <td>
+            <router-link
+              :to="{ name: 'user', params: { id: user.id }}"
+              class="nav-item">
+              Profile
+            </router-link>
+            <router-link
+              :to="{ name: 'edit', params: { id: user.id }}"
+              class="nav-item">
+              Edit
+            </router-link>
+            <a
+              class="action-link"
+              @click="deleteUser(user)">
+              Delete
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script>
-var compareString = function(firstString, secondString) {
-  return firstString.toUpperCase().indexOf(secondString.toUpperCase()) > -1
-}
+import axios from '@/axios'
+
 export default {
   name: 'UsersList',
   props: {
-    msg: String
+    currentUsersListByRange: {
+      type: Array,
+      default: null,
+      required: false
+    },
+    filteredUsersList: {
+      type: Array,
+      default: null,
+      required: false
+    }
   },
   data: function() {
     return {
-      searchFilter: '',
       usersList: [],
-      loading: true
+      currentUsersList: []
+    }
+  },
+  watch: {
+    filteredUsersList(after, before) {
+      if (after.length !== before.length) {
+        this.onCurrentUsersAmount()
+      }
     }
   },
   mounted() {
@@ -69,10 +80,13 @@ export default {
   },
   methods: {
     loadUsersList() {
-      return this.$axios
-        .get('http://localhost:3004/users')
+      return axios
+        .get('users')
         .then(response => {
           this.usersList = response.data
+          this.currentUsersList = Object.assign({}, this.usersList)
+          this.onCurrentUsersAmount()
+          this.onUsersList()
         })
         .catch(error => {
           console.log(error)
@@ -84,31 +98,32 @@ export default {
       var confirm = window.confirm(`
         Are you sure want to delete ${user.firstName} ${user.lastName}?
       `)
-      if (confirm) {
-        this.loading = true
-        this.$axios
-          .delete(`http://localhost:3004/users/${user.id}`)
-          .then(() => {
-            alert(`${user.firstName} ${user.lastName} was deleted successfully`)
-            this.loadUsersList()
-          })
-          .catch(error => {
-            console.log(error)
-            alert(error)
-            this.errored = true
-          })
-          .finally(() => (this.loading = false))
+      if (!confirm) {
+        return
       }
-    }
-  },
-  computed: {
-    filteredList() {
-      return this.usersList.filter(item => {
-        return (
-          compareString(item.firstName, this.searchFilter) ||
-          compareString(item.lastName, this.searchFilter)
-        )
-      })
+      this.loading = true
+      axios
+        .delete(`users/${user.id}`)
+        .then(() => {
+          alert(`${user.firstName} ${user.lastName} was deleted successfully`)
+          this.loadUsersList()
+        })
+        .catch(error => {
+          console.log(error)
+          alert(error)
+          this.errored = true
+        })
+        .finally(() => (this.loading = false))
+    },
+    onCurrentUsersAmount() {
+      const amount =
+        (this.filteredUsersList && this.filteredUsersList.length) ||
+        (this.currentUsersList && this.currentUsersList.length) ||
+        0
+      this.$emit('currentUsersAmount', amount)
+    },
+    onUsersList() {
+      this.$emit('usersList', this.usersList)
     }
   }
 }

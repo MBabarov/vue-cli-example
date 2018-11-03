@@ -1,61 +1,77 @@
 <template>
-  <div class="current">
-    <div v-if="loading">Loading...</div>
-    <div v-else>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3 col-lg-3 " align="center">
-            <img alt="User Pic" :src="currentUser.picture" class="img-circle img-responsive">
-          </div>
-          <div class=" col-md-9 col-lg-9" align="left">
-            <h3 class="panel-title">{{currentUser.firstName}} {{currentUser.lastName}}</h3>
-            {{currentUser.about}}
-          </div>
+  <div class="current-user">
+    <div class="container">
+      <div class="row">
+        <div
+          class="col-md-3 col-lg-3 "
+          align="center">
+          <img
+            :src="currentUser.picture"
+            alt="User Pic"
+            class="img-circle img-responsive">
         </div>
-        <div class="row">
-          <div class="col-md-3 col-lg-3 " align="center"></div>
-          <div class=" col-md-9 col-lg-9">
-            <h5 align="left">Personal information</h5>
-            <table class="table table-user-information">
-              <tbody>
-                <tr align="left">
-                  <td>Registered:</td>
-                  <td>{{currentUser.registered}}</td>
-                </tr>
-                <tr align="left">
-                  <td>Age:</td>
-                  <td>{{currentUser.age}}</td>
-                </tr>
-                <tr align="left">
-                  <td>Company:</td>
-                  <td>{{currentUser.company}}</td>
-                </tr>
-                <tr align="left">
-                  <td>Email:</td>
-                  <td><a>{{currentUser.email}}</a></td>
-                </tr>
-                <tr align="left">
-                  <td>Phone:</td>
-                  <td>{{currentUser.phone}}</td>
-                </tr>
-                <tr align="left">
-                  <td>Address:</td>
-                  <td>{{currentUser.address}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div
+          class=" col-md-9 col-lg-9"
+          align="left">
+          <h3 class="panel-title">{{ currentUser.firstName }} {{ currentUser.lastName }}</h3>
+          {{ currentUser.about }}
         </div>
-        <div class="row">
-          <div class="col-md-3 col-lg-3 " align="center"></div>
-          <div class=" col-md-9 col-lg-9" align="left">
-            <router-link tab="button " class="btn btn-primary" :to="{ name: 'edit', params: { id: currentUser.id }}">
-              Edit user
-            </router-link>
-            <button align="left" class="btn btn-primary" @click="deleteCurrentUser">
-              Delete user
-            </button>
-          </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-md-3 col-lg-3 "
+          align="center"/>
+        <div class=" col-md-9 col-lg-9">
+          <h5 align="left">Personal information</h5>
+          <table class="table table-user-information">
+            <tbody>
+              <tr align="left">
+                <td>Registered:</td>
+                <td>{{ currentUser.registered }}</td>
+              </tr>
+              <tr align="left">
+                <td>Age:</td>
+                <td>{{ currentUser.age }}</td>
+              </tr>
+              <tr align="left">
+                <td>Company:</td>
+                <td>{{ currentUser.company }}</td>
+              </tr>
+              <tr align="left">
+                <td>Email:</td>
+                <td><a>{{ currentUser.email }}</a></td>
+              </tr>
+              <tr align="left">
+                <td>Phone:</td>
+                <td>{{ currentUser.phone }}</td>
+              </tr>
+              <tr align="left">
+                <td>Address:</td>
+                <td>{{ currentUser.address }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-md-3 col-lg-3 "
+          align="center"/>
+        <div
+          class=" col-md-9 col-lg-9"
+          align="left">
+          <router-link
+            :to="{ name: 'edit', params: { id: currentUser.id }}"
+            tab="button "
+            class="btn btn-primary">
+            Edit user
+          </router-link>
+          <button
+            align="left"
+            class="btn btn-primary"
+            @click="deleteCurrentUser">
+            Delete user
+          </button>
         </div>
       </div>
     </div>
@@ -63,10 +79,16 @@
 </template>
 
 <script>
+import axios from '@/axios'
+
 export default {
   name: 'CurrentUser',
   props: {
-    id: String
+    id: {
+      type: [String, Number],
+      default: '',
+      required: false
+    }
   },
   data: function() {
     return {
@@ -74,11 +96,14 @@ export default {
       loading: true
     }
   },
+  mounted() {
+    this.loadUser()
+  },
   methods: {
     loadUser() {
       this.loading = true
-      this.$axios
-        .get(`http://localhost:3004/users/${this.id}`)
+      axios
+        .get(`users/${this.id}`)
         .then(response => {
           this.currentUser = response.data
         })
@@ -94,7 +119,7 @@ export default {
       `)
       if (confirm) {
         this.loading = true
-        this.$axios
+        axios
           .delete(`http://localhost:3004/users/${this.id}`)
           .then(() => {
             alert(`
@@ -109,9 +134,6 @@ export default {
           .finally(() => (this.loading = false))
       }
     }
-  },
-  mounted() {
-    this.loadUser()
   }
 }
 </script>

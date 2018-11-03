@@ -1,9 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import UsersListPage from './views/UsersListPage.vue'
-import NewUserPage from './views/NewUserPage.vue'
-import EditUserPage from './views/EditUserPage.vue'
-import UserPage from './views/UserPage.vue'
 
 Vue.use(Router)
 
@@ -12,24 +8,39 @@ export default new Router({
     {
       path: '/',
       name: 'users-list',
-      component: UsersListPage
+      component: () => import('./views/UsersListPage')
+    },
+    {
+      path: '/users-list-poor',
+      name: 'users-list-poor',
+      component: () => import('./views/UsersListPagePoor')
+    },
+    {
+      path: '/without-paginator',
+      name: 'users-list-p',
+      component: () => import('./views/UsersListPageWithoutPaginator')
+    },
+    {
+      path: '/without-search',
+      name: 'users-list-s',
+      component: () => import('./views/UsersListPageWithoutSearch')
     },
     {
       path: '/new-user',
       name: 'new-user',
-      component: NewUserPage
+      component: () => import('./views/NewUserPage')
     },
     {
       path: '/user/:id',
       name: 'user',
       props: true,
-      component: UserPage
+      component: () => import('./views/UserPage')
     },
     {
       path: '/user/:id/edit',
       name: 'edit',
       props: true,
-      component: EditUserPage
+      component: () => import('./views/EditUserPage')
     }
   ]
 })

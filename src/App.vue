@@ -1,17 +1,72 @@
 <template>
   <div id="app">
     <header>
-      <nav id="nav" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <img class="logo" alt="Vue logo" src="./assets/logo.png">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <nav
+        id="nav"
+        class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <img
+          src="./assets/logo.png"
+          class="logo"
+          alt="Vue logo">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarCollapse"
+          aria-controls="navbarCollapse"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
           <span class="navbar-toggler-icon" />
         </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div
+          id="navbarCollapse"
+          class="collapse navbar-collapse">
           <ul class="navbar-nav mr-auto">
-            <router-link tag="li" class="nav-item" to="/">
-              <a class="nav-link" :class="{ active: isUsersListActive }">Users List</a>
+            <router-link
+              tag="li"
+              class="nav-item"
+              to="/">
+              <a
+                class="nav-link"
+                active-class="active">
+                Users List
+              </a>
             </router-link>
-            <router-link tag="li" to="/new-user" class="nav-item" :class="{ active: isNewUserActive }">
+            <router-link
+              tag="li"
+              class="nav-item"
+              to="/users-list-poor">
+              <a
+                class="nav-link"
+                active-class="active">
+                Users List Poor
+              </a>
+            </router-link>
+            <router-link
+              tag="li"
+              class="nav-item"
+              to="/without-paginator">
+              <a
+                class="nav-link"
+                active-class="active">
+                Users List without p
+              </a>
+            </router-link>
+            <router-link
+              tag="li"
+              class="nav-item"
+              to="/without-search">
+              <a
+                class="nav-link"
+                active-class="active">
+                Users List without s
+              </a>
+            </router-link>
+            <router-link
+              tag="li"
+              to="/new-user"
+              class="nav-item"
+              active-class="active">
               <a class="nav-link">New user</a>
             </router-link>
           </ul>
@@ -27,27 +82,6 @@ export default {
     return {
       isUsersListActive: true,
       isNewUserActive: false
-    }
-  },
-  watch: {
-    $route() {
-      switch (this.$route.path) {
-        case '/': {
-          this.isUsersListActive = true
-          this.isNewUserActive = false
-          break
-        }
-        case '/new-user': {
-          this.isUsersListActive = false
-          this.isNewUserActive = true
-          break
-        }
-        default: {
-          this.isUsersListActive = false
-          this.isNewUserActive = false
-          break
-        }
-      }
     }
   }
 }

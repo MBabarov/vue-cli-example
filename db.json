@@ -1,22 +1,6 @@
 {
   "users": [
     {
-      "id": 15,
-      "isActive": true,
-      "balance": "$3,877.64",
-      "picture": "http://placehold.it/128x128",
-      "age": 27,
-      "accessLevel": "admin",
-      "firstName": "Murphy",
-      "lastName": "Chavez",
-      "company": "MYOPIUM",
-      "email": "murphy.chavez@myopium.biz",
-      "phone": "+7 (945) 498-2832",
-      "address": "264 Kenilworth Place, Dahlen, Palau, 443",
-      "about": "Ut voluptate minim qui cillum qui aliquip irure amet aliquip consequat laborum in duis. Consequat ut occaecat est nostrud. Deserunt aute Lorem cillum anim ad minim aliqua. Proident ullamco officia ut Lorem do veniam. Aliqua Lorem sit dolor duis Lorem anim sit occaecat ipsum.",
-      "registered": "10.10.2015"
-    },
-    {
       "id": 16,
       "isActive": true,
       "balance": "$2,436.21",
@@ -383,22 +367,6 @@
       "address": "241 Huntington Street, Jeff, District Of Columbia, 3700",
       "about": "Ea duis ad ex aliquip nostrud commodo ullamco ullamco laboris. Lorem nisi incididunt duis occaecat eu ex nisi aliqua deserunt exercitation ut. Eiusmod reprehenderit est eu non do officia. Proident quis duis elit dolore tempor voluptate sit nulla laboris irure ut velit. Id sunt elit voluptate commodo.",
       "registered": "18.08.2017"
-    },
-    {
-      "id": 39,
-      "isActive": false,
-      "balance": "$3,570.96",
-      "picture": "http://placehold.it/128x128",
-      "age": 33,
-      "accessLevel": "admin",
-      "firstName": "Adrian",
-      "lastName": "Sparks",
-      "company": "BUNGA",
-      "email": "adrian.sparks@bunga.biz",
-      "phone": "+7 (964) 450-2013",
-      "address": "692 Manor Court, Maybell, Louisiana, 3874",
-      "about": "Cillum ut ea anim ex. Dolor reprehenderit nostrud reprehenderit reprehenderit minim ullamco culpa nulla aliqua voluptate do mollit. Enim laboris Lorem ullamco consequat nostrud do ad magna voluptate proident elit voluptate est. Amet nisi nulla amet sit voluptate culpa duis do velit esse anim mollit voluptate qui.",
-      "registered": "20.06.2015"
     }
   ]
 }

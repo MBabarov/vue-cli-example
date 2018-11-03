@@ -5,8 +5,8 @@
       class="main">
       <section class="jumbotron text-center">
         <div class="container">
-          <h1 align="canter">Users list</h1>
-          <SmartUsersList />
+          <h1 align="canter">Users list without search</h1>
+          <SmartUsersListWithoutSearch />
         </div>
       </section>
     </main>
@@ -15,9 +15,9 @@
 
 <script>
 export default {
-  name: 'UsersListPage',
+  name: 'UsersListPageWithoutSearch',
   components: {
-    SmartUsersList: () => import('@/components/SmartUsersList')
+    SmartUsersListWithoutSearch: () => import('@/components/SmartUsersListWithoutSearch')
   }
 }
 </script>
