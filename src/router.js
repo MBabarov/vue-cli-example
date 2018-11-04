@@ -15,6 +15,14 @@ const router = new Router({
       }
     },
     {
+      path: '/phone-mode',
+      name: 'phone-mode',
+      component: () => import('./views/UsersListPhoneModePage'),
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => import('./views/LoginPage'),

@@ -23,7 +23,7 @@ export default {
     Loading: () => import('@/components/Loading'),
     SmartUsersList: () => import('@/components/SmartUsersList')
   },
-  data() {
+  data: function() {
     return {
       smartUserLoading: true
     }
@@ -35,11 +35,8 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style>
 .main {
   margin-top: 100px;
-}
-.jumbotron {
-  margin-bottom: 0;
 }
 </style>

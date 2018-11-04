@@ -19,20 +19,21 @@
       v-show="!smartUserLoading"
       :show-at-once="currentRange"
       :amount="currentUsersAmount"
+      @loading="onLoadPaginator"
       @currentStep="onCurrentStep" />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'SmartUserList',
+  name: 'UsersListPage',
   components: {
     UsersList: () => import('@/components/UsersList'),
     SearchFilter: () => import('@/components/SearchFilter'),
     SelectOfQuantity: () => import('@/components/SelectOfQuantity'),
     Paginator: () => import('@/components/Paginator')
   },
-  data() {
+  data: function() {
     return {
       currentUsersAmount: 0,
       currentRange: 0,
@@ -53,6 +54,9 @@ export default {
   methods: {
     onCurrentStep(step) {
       this.currentStep = step
+    },
+    onLoadPaginator(loading) {
+      this.loadingPaginator = loading
     },
     onCurrentRange(range) {
       this.currentRange = range

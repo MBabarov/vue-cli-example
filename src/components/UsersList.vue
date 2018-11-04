@@ -2,7 +2,7 @@
   <div class="users">
     <table class="table">
       <thead>
-        <tr>
+        <slot name="header-phone-mode">
           <th scope="col">#</th>
           <th scope="col">First</th>
           <th scope="col">Last</th>
@@ -10,35 +10,39 @@
           <th scope="col">Email</th>
           <th scope="col">Phone</th>
           <th scope="col">Actions</th>
-        </tr>
+        </slot>
       </thead>
       <tbody>
         <tr
           v-for="user in currentUsersList"
           :key="user.id">
-          <td scope="row">{{ user.id }}</td>
-          <td>{{ user.firstName }}</td>
-          <td>{{ user.lastName }}</td>
-          <td>{{ user.company }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.phone }}</td>
-          <td>
-            <router-link
-              :to="{ name: 'user', params: { id: user.id }}"
-              class="nav-item">
-              Profile
-            </router-link>
-            <router-link
-              :to="{ name: 'edit', params: { id: user.id }}"
-              class="nav-item">
-              Edit
-            </router-link>
-            <a
-              class="action-link"
-              @click="deleteUser(user)">
-              Delete
-            </a>
-          </td>
+          <slot
+            :user="user"
+            name="body-phone-mode">
+            <td scope="row">{{ user.id }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.company }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone }}</td>
+            <td>
+              <router-link
+                :to="{ name: 'user', params: { id: user.id }}"
+                class="nav-item">
+                Profile
+              </router-link>
+              <router-link
+                :to="{ name: 'edit', params: { id: user.id }}"
+                class="nav-item">
+                Edit
+              </router-link>
+              <a
+                class="action-link"
+                @click="deleteUser(user)">
+                Delete
+              </a>
+            </td>
+          </slot>
         </tr>
       </tbody>
     </table>

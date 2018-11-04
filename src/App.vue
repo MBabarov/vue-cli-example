@@ -35,6 +35,16 @@
             <router-link
               tag="li"
               class="nav-item"
+              to="/phone-mode">
+              <a
+                class="nav-link"
+                active-class="active">
+                Users List (phone mode)
+              </a>
+            </router-link>
+            <router-link
+              tag="li"
+              class="nav-item"
               to="/users-list-poor">
               <a
                 class="nav-link"
