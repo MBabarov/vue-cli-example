@@ -31,7 +31,10 @@
               </div>
             </div>
           </div>
-          <CurrentUser :id="id" />
+          <Loading v-show="userDataLoading" />
+          <CurrentUser
+            v-show="!userDataLoading"
+            @loading="onLoadUserData"/>
         </div>
       </div>
     </section>
@@ -43,19 +46,27 @@
 export default {
   name: 'UserPage',
   components: {
+    Loading: () => import('@/components/Loading'),
     CurrentUser: () => import('@/components/CurrentUser')
   },
-  props: {
-    id: {
-      type: [Number, String],
-      required: true
+  data() {
+    return {
+      userDataLoading: true
+    }
+  },
+  methods: {
+    onLoadUserData(loading) {
+      this.userDataLoading = loading
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .main {
   margin-top: 100px;
+}
+.jumbotron {
+  margin-bottom: 0;
 }
 </style>

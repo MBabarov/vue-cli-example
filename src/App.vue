@@ -71,6 +71,10 @@
             </router-link>
           </ul>
         </div>
+        <button
+          class="btn btn-warning"
+          @click="clearLocalStorage"
+        >Clear local Storage</button>
       </nav>
     </header>
     <router-view/>
@@ -78,10 +82,11 @@
 </template>
 <script>
 export default {
-  data: function() {
-    return {
-      isUsersListActive: true,
-      isNewUserActive: false
+  name: 'App',
+  methods: {
+    clearLocalStorage() {
+      localStorage.removeItem('token')
+      localStorage.clear()
     }
   }
 }

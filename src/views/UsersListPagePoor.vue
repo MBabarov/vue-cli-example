@@ -6,7 +6,10 @@
       <section class="jumbotron text-center">
         <div class="container">
           <h1 align="canter">Users list poor</h1>
-          <UsersList />
+          <Loading v-show="usersLoading" />
+          <UsersList
+            v-show="!usersLoading"
+            @loading="onLoadUsers" />
         </div>
       </section>
     </main>
@@ -17,12 +20,26 @@
 export default {
   name: 'UsersListPagePoor',
   components: {
+    Loading: () => import('@/components/Loading'),
     UsersList: () => import('@/components/UsersList')
+  },
+  data() {
+    return {
+      usersLoading: true
+    }
+  },
+  methods: {
+    onLoadUsers(loading) {
+      this.usersLoading = loading
+    }
   }
 }
 </script>
-<style>
+<style scoped>
 .main {
   margin-top: 100px;
+}
+.jumbotron {
+  margin-bottom: 0;
 }
 </style>

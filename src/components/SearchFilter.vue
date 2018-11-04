@@ -7,15 +7,13 @@
         class="form-control"
         type="text"
         placeholder="Enter name or surname for filtering"
-        @input="onFilteredUsersList">
+        @input="onFilteredUsersListBySearch">
     </div>
   </div>
 </template>
 
 <script>
-var compareString = function(firstString, secondString) {
-  return firstString.toUpperCase().indexOf(secondString.toUpperCase()) > -1
-}
+import utils from '@/utils'
 
 export default {
   name: 'SearchFilter',
@@ -25,29 +23,29 @@ export default {
       required: true
     }
   },
-  data: function() {
+  data() {
     return {
       searchFilter: ''
-    }
-  },
-  watch: {
-    usersList() {
-      this.onFilteredUsersList()
     }
   },
   computed: {
     filteredList() {
       return this.usersList.filter(item => {
         return (
-          compareString(item.firstName, this.searchFilter) ||
-          compareString(item.lastName, this.searchFilter)
+          utils.compareString(item.firstName, this.searchFilter) ||
+          utils.compareString(item.lastName, this.searchFilter)
         )
       })
     }
   },
+  watch: {
+    usersList() {
+      this.onFilteredUsersListBySearch()
+    }
+  },
   methods: {
-    onFilteredUsersList() {
-      this.$emit('filteredUsersList', this.filteredList)
+    onFilteredUsersListBySearch() {
+      this.$emit('filteredUsersListBySearch', this.filteredList)
     }
   }
 }

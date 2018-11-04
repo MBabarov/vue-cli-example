@@ -66,6 +66,9 @@ export default {
     }
   },
   watch: {
+    showAtOnce() {
+      this.onCurrentStep(1)
+    },
     amount() {
       this.onCurrentStep(1)
     }

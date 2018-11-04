@@ -6,7 +6,10 @@
       <section class="jumbotron text-center">
         <div class="container">
           <h1 align="canter">Users list without paginator</h1>
-          <SmartUsersListWithoutPaginator />
+          <Loading v-show="usersLoading" />
+          <SmartUsersListWithoutPaginator
+            v-show="!usersLoading"
+            @loading="onLoadUsers" />
         </div>
       </section>
     </main>
@@ -15,14 +18,28 @@
 
 <script>
 export default {
-  name: 'UsersListPageWitoutPaginator',
+  name: 'UsersListPageWithoutPaginator',
   components: {
+    Loading: () => import('@/components/Loading'),
     SmartUsersListWithoutPaginator: () => import('@/components/SmartUsersListWithoutPaginator')
+  },
+  data() {
+    return {
+      usersLoading: true
+    }
+  },
+  methods: {
+    onLoadUsers(loading) {
+      this.usersLoading = loading
+    }
   }
 }
 </script>
-<style>
+<style scoped>
 .main {
   margin-top: 100px;
+}
+.jumbotron {
+  margin-bottom: 0;
 }
 </style>

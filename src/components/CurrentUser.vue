@@ -1,6 +1,8 @@
 <template>
   <div class="current-user">
-    <div class="container">
+    <div
+      v-if="currentUser"
+      class="container">
       <div class="row">
         <div
           class="col-md-3 col-lg-3 "
@@ -14,7 +16,7 @@
           class=" col-md-9 col-lg-9"
           align="left">
           <h3 class="panel-title">{{ currentUser.firstName }} {{ currentUser.lastName }}</h3>
-          {{ currentUser.about }}
+          <p v-html="currentUser.about"/>
         </div>
       </div>
       <div class="row">
@@ -83,23 +85,32 @@ import axios from '@/axios'
 
 export default {
   name: 'CurrentUser',
-  props: {
-    id: {
-      type: [String, Number],
-      default: '',
-      required: false
-    }
-  },
-  data: function() {
+  data() {
     return {
       currentUser: null,
       loading: true
+    }
+  },
+  computed: {
+    id() {
+      return Number(this.$route.params.id)
+    }
+  },
+  watch: {
+    loading() {
+      this.onLoad()
+    },
+    $route() {
+      this.loadUser()
     }
   },
   mounted() {
     this.loadUser()
   },
   methods: {
+    onLoad() {
+      this.$emit('loading', this.loading)
+    },
     loadUser() {
       this.loading = true
       axios

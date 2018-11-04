@@ -6,7 +6,10 @@
       <section class="jumbotron text-center">
         <div class="container">
           <h1 align="canter">Users list</h1>
-          <SmartUsersList />
+          <Loading v-show="smartUserLoading" />
+          <SmartUsersList
+            v-show="!smartUserLoading"
+            @loading="onLoadSmartUser" />
         </div>
       </section>
     </main>
@@ -17,12 +20,26 @@
 export default {
   name: 'UsersListPage',
   components: {
+    Loading: () => import('@/components/Loading'),
     SmartUsersList: () => import('@/components/SmartUsersList')
+  },
+  data() {
+    return {
+      smartUserLoading: true
+    }
+  },
+  methods: {
+    onLoadSmartUser(loading) {
+      this.smartUserLoading = loading
+    }
   }
 }
 </script>
-<style>
+<style scoped>
 .main {
   margin-top: 100px;
+}
+.jumbotron {
+  margin-bottom: 0;
 }
 </style>

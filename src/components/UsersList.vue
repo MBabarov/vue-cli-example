@@ -14,7 +14,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="user in currentUsersListByRange"
+          v-for="user in currentUsersList"
           :key="user.id">
           <td scope="row">{{ user.id }}</td>
           <td>{{ user.firstName }}</td>
@@ -42,6 +42,7 @@
         </tr>
       </tbody>
     </table>
+    <p class="total-block">Total: {{ usersList.length }} users</p>
   </div>
 </template>
 
@@ -56,35 +57,48 @@ export default {
       default: null,
       required: false
     },
-    filteredUsersList: {
+    filteredUsersListBySearch: {
       type: Array,
       default: null,
       required: false
     }
   },
-  data: function() {
+  data() {
     return {
       usersList: [],
-      currentUsersList: []
+      currentUsersAmount: 0,
+      loading: true
+    }
+  },
+  computed: {
+    currentUsersList() {
+      return this.currentUsersListByRange || this.filteredUsersListBySearch || this.usersList
     }
   },
   watch: {
-    filteredUsersList(after, before) {
+    filteredUsersListBySearch(after, before) {
       if (after.length !== before.length) {
         this.onCurrentUsersAmount()
       }
+    },
+    loading() {
+      this.onLoad()
     }
   },
   mounted() {
     this.loadUsersList()
   },
   methods: {
+    onLoad() {
+      this.$emit('loading', this.loading)
+    },
     loadUsersList() {
+      this.loading = true
       return axios
         .get('users')
         .then(response => {
           this.usersList = response.data
-          this.currentUsersList = Object.assign({}, this.usersList)
+          this.currentUsersAmount = Object.assign([], this.usersList).length
           this.onCurrentUsersAmount()
           this.onUsersList()
         })
@@ -117,8 +131,8 @@ export default {
     },
     onCurrentUsersAmount() {
       const amount =
-        (this.filteredUsersList && this.filteredUsersList.length) ||
-        (this.currentUsersList && this.currentUsersList.length) ||
+        (this.filteredUsersListBySearch && this.filteredUsersListBySearch.length) ||
+        this.currentUsersAmount ||
         0
       this.$emit('currentUsersAmount', amount)
     },
@@ -154,5 +168,9 @@ a:hover {
 .action-link:hover:not([href]):not([tabindex]) {
   text-decoration: underline;
   cursor: pointer;
+}
+.total-block {
+  font-weight: 600;
+  text-align: left;
 }
 </style>

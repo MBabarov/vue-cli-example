@@ -31,7 +31,11 @@
               </div>
             </div>
           </div>
-          <UserForm :id="id" />
+          <Loading v-show="userFormLoading" />
+          <UserForm
+            v-show="!userFormLoading"
+            :id="id"
+            @loading="onLoadUserForm" />
         </div>
       </div>
     </section>
@@ -43,12 +47,23 @@
 export default {
   name: 'EditUserPage',
   components: {
+    Loading: () => import('@/components/Loading'),
     UserForm: () => import('@/components/UserForm')
   },
   props: {
     id: {
       type: [Number, String],
       required: true
+    }
+  },
+  data() {
+    return {
+      userFormLoading: true
+    }
+  },
+  methods: {
+    onLoadUserForm(loading) {
+      this.userFormLoading = loading
     }
   }
 }
@@ -57,5 +72,8 @@ export default {
 <style scoped>
 .main {
   margin-top: 100px;
+}
+.jumbotron {
+  margin-bottom: 0;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="select-of-quantity">
-    <h5 align="left">Choose how many items to show on one page.</h5>
+    <h5 align="left">Choose how many users to show on one screen.</h5>
     <select
       v-model="currentRange"
       class="browser-default custom-select"

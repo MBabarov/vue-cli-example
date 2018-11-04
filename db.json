@@ -5,7 +5,7 @@
       "isActive": true,
       "balance": "$2,436.21",
       "picture": "http://placehold.it/128x128",
-      "age": 33,
+      "age": "11",
       "accessLevel": "admin",
       "firstName": "Stacy",
       "lastName": "Sloan",
@@ -13,8 +13,8 @@
       "email": "stacy.sloan@rodeology.com",
       "phone": "+7 (955) 555-2395",
       "address": "130 Crown Street, Muse, Alabama, 5492",
-      "about": "Veniam sunt ullamco anim magna tempor. Minim ut commodo magna nostrud ex laboris do tempor ex. Ullamco officia dolore magna enim aliquip elit. Irure tempor est voluptate non elit labore. Enim minim nisi incididunt nostrud Lorem anim. Ex mollit amet nulla fugiat. Magna do cupidatat fugiat non do ea elit deserunt est ipsum laboris nulla enim mollit.",
-      "registered": "22.07.2017"
+      "about": "<p>Veniam sunt ullamco anim magna tempor. Minim ut commodo magna nostrud ex laboris do tempor ex. Ullamco officia dolore magna enim aliquip elit. Irure tempor est voluptate non elit labore. Enim minim nisi incididunt nostrud Lorem anim. <strong>Ex mollit amet nulla fugiat. Magna do cupidatat fugiat non do ea elit deserunt est ipsum laboris nulla enim mollit</strong>  </p>",
+      "registered": "07.07.2017"
     },
     {
       "id": 17,
@@ -45,7 +45,7 @@
       "email": "gates.keith@geekfarm.me",
       "phone": "+7 (834) 552-2211",
       "address": "861 Linden Street, Disautel, Federated States Of Micronesia, 4039",
-      "about": "Ipsum non elit quis velit laboris esse qui proident ipsum duis consectetur non. Esse irure reprehenderit est dolore occaecat ullamco. Velit exercitation consectetur cupidatat adipisicing voluptate do exercitation. Tempor et mollit incididunt velit aliquip duis exercitation ex nostrud. Duis sit eu incididunt ut ex minim esse. Consequat reprehenderit officia ea ex. Reprehenderit qui ad irure nisi eiusmod ipsum minim.",
+      "about": "<p>Ipsum non elit quis velit laboris esse qui proident ipsum duis consectetur non. Esse irure reprehenderit est dolore occaecat ullamco. Velit exercitation consectetur cupidatat adipisicing voluptate do exercitation. Tempor et mollit incididunt velit aliquip duis exercitation ex nostrud. Duis sit eu incididunt ut ex minim esse. Consequat reprehenderit officia ea ex. <em>Reprehenderit qui ad irure nisi eiusmod ipsum minim.</em></p>",
       "registered": "01.05.2016"
     },
     {
@@ -68,7 +68,7 @@
       "id": 20,
       "isActive": false,
       "balance": "$2,191.16",
-      "picture": "http://placehold.it/128x128",
+      "picture": "https://i.imgur.com/QGrvQ18.jpg",
       "age": 30,
       "accessLevel": "guest",
       "firstName": "Chrystal",
@@ -351,22 +351,6 @@
       "address": "215 Howard Alley, Hoehne, Florida, 6542",
       "about": "Ullamco sunt sunt amet id laboris duis qui voluptate incididunt. Proident ipsum do dolore est proident cupidatat consectetur do elit nostrud enim elit irure. Do nulla sunt irure nostrud adipisicing cupidatat fugiat anim est ad reprehenderit id.",
       "registered": "19.08.2016"
-    },
-    {
-      "id": 38,
-      "isActive": false,
-      "balance": "$1,525.53",
-      "picture": "http://placehold.it/128x128",
-      "age": 37,
-      "accessLevel": "guest",
-      "firstName": "Nielsen",
-      "lastName": "Carroll",
-      "company": "EARGO",
-      "email": "nielsen.carroll@eargo.tv",
-      "phone": "+7 (826) 400-2568",
-      "address": "241 Huntington Street, Jeff, District Of Columbia, 3700",
-      "about": "Ea duis ad ex aliquip nostrud commodo ullamco ullamco laboris. Lorem nisi incididunt duis occaecat eu ex nisi aliqua deserunt exercitation ut. Eiusmod reprehenderit est eu non do officia. Proident quis duis elit dolore tempor voluptate sit nulla laboris irure ut velit. Id sunt elit voluptate commodo.",
-      "registered": "18.08.2017"
     }
   ]
 }

@@ -15,7 +15,10 @@
               <h1>Create new user profile</h1>
             </div>
           </div>
-          <UserForm />
+          <Loading v-show="userFormLoading" />
+          <UserForm
+            v-show="!userFormLoading"
+            @loading="onLoadUserForm" />
         </div>
       </div>
     </section>
@@ -27,13 +30,27 @@
 export default {
   name: 'NewUserPage',
   components: {
+    Loading: () => import('@/components/Loading'),
     UserForm: () => import('@/components/UserForm')
+  },
+  data() {
+    return {
+      userFormLoading: true
+    }
+  },
+  methods: {
+    onLoadUserForm(loading) {
+      this.userFormLoading = loading
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .main {
   margin-top: 100px;
+}
+.jumbotron {
+  margin-bottom: 0;
 }
 </style>

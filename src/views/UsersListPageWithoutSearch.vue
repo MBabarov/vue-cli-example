@@ -6,7 +6,10 @@
       <section class="jumbotron text-center">
         <div class="container">
           <h1 align="canter">Users list without search</h1>
-          <SmartUsersListWithoutSearch />
+          <Loading v-show="usersLoading" />
+          <SmartUsersListWithoutSearch
+            v-show="!usersLoading"
+            @loading="onLoadUsers" />
         </div>
       </section>
     </main>
@@ -17,12 +20,26 @@
 export default {
   name: 'UsersListPageWithoutSearch',
   components: {
+    Loading: () => import('@/components/Loading'),
     SmartUsersListWithoutSearch: () => import('@/components/SmartUsersListWithoutSearch')
+  },
+  data() {
+    return {
+      usersLoading: true
+    }
+  },
+  methods: {
+    onLoadUsers(loading) {
+      this.usersLoading = loading
+    }
   }
 }
 </script>
-<style>
+<style scoped>
 .main {
   margin-top: 100px;
+}
+.jumbotron {
+  margin-bottom: 0;
 }
 </style>
