@@ -39,12 +39,8 @@ export default {
     }
   },
   watch: {
-    usersList() {
-      this.onCurrentUsersListByRange()
-    },
-    currentStep() {
-      this.onCurrentUsersListByRange()
-    }
+    usersList: 'onCurrentUsersListByRange',
+    currentStep: 'onCurrentUsersListByRange'
   },
   mounted() {
     this.onCurrentRange(this.range[0])

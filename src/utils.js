@@ -1,7 +1,6 @@
-const compareString = function(firstString, secondString) {
-  return firstString.toUpperCase().indexOf(secondString.toUpperCase()) > -1
-}
-
-export default {
-  compareString: compareString
+export const compareString = function(firstString, secondString) {
+  return (
+    firstString.match(new RegExp(secondString, 'gi')) &&
+    firstString.match(new RegExp(secondString, 'gi')).length
+  )
 }

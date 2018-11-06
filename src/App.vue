@@ -26,9 +26,7 @@
               tag="li"
               class="nav-item"
               to="/">
-              <a
-                class="nav-link"
-                active-class="active">
+              <a class="nav-link">
                 Users List
               </a>
             </router-link>
@@ -36,52 +34,20 @@
               tag="li"
               class="nav-item"
               to="/phone-mode">
-              <a
-                class="nav-link"
-                active-class="active">
+              <a class="nav-link">
                 Users List (phone mode)
               </a>
             </router-link>
             <router-link
               tag="li"
-              class="nav-item"
-              to="/users-list-poor">
-              <a
-                class="nav-link"
-                active-class="active">
-                Users List Poor
-              </a>
-            </router-link>
-            <router-link
-              tag="li"
-              class="nav-item"
-              to="/without-paginator">
-              <a
-                class="nav-link"
-                active-class="active">
-                Users List without p
-              </a>
-            </router-link>
-            <router-link
-              tag="li"
-              class="nav-item"
-              to="/without-search">
-              <a
-                class="nav-link"
-                active-class="active">
-                Users List without s
-              </a>
-            </router-link>
-            <router-link
-              tag="li"
               to="/new-user"
-              class="nav-item"
-              active-class="active">
+              class="nav-item">
               <a class="nav-link">New user</a>
             </router-link>
           </ul>
         </div>
         <button
+          type="button"
           class="btn btn-warning"
           @click="clearLocalStorage"
         >Clear local Storage</button>
@@ -91,12 +57,13 @@
   </div>
 </template>
 <script>
+import * as auth from '@/auth'
+
 export default {
   name: 'App',
   methods: {
     clearLocalStorage() {
-      localStorage.removeItem('token')
-      localStorage.clear()
+      auth.deleteToken()
     }
   }
 }

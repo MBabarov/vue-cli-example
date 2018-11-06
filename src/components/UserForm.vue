@@ -246,10 +246,23 @@
             class="col-md-9 col-lg-9 action-group"
             align="left">
             <button
+              type="button"
               class="btn btn-primary btn-block"
               @click="validateBeforeSubmit">{{ titleFormButton }}</button>
           </div>
         </div>
+        <Modal
+          :modal-show="updateModalShow"
+          @onAgree="updateModalAgree">
+          <h5 slot="title">
+            Update user profile
+          </h5>
+          <p
+            slot="body"
+            class="modal-body">
+            Are you sure want to update {{ user.firstName }} {{ user.lastName }} profile?
+          </p>
+        </Modal>
       </div>
     </div>
   </div>
@@ -263,7 +276,8 @@ export default {
   components: {
     VueEditor,
     ImageUpload: () => import('@/components/ImageUpload'),
-    DatePicker: () => import('@/components/DatePicker')
+    DatePicker: () => import('@/components/DatePicker'),
+    Modal: () => import('@/components/Modal')
   },
   data() {
     return {
@@ -274,24 +288,21 @@ export default {
         ['bold', 'italic', 'underline'],
         [{ list: 'ordered' }, { list: 'bullet' }],
         ['image', 'code-block']
-      ]
+      ],
+      updateModalShow: false
     }
   },
   computed: {
     titleFormButton() {
-      return this.$route.name == 'new-user' ? 'Create new user profile' : 'Update user profile'
+      return this.$route.name === 'new-user' ? 'Create new user profile' : 'Update user profile'
     },
     id() {
       return Number(this.$route.params.id)
     }
   },
   watch: {
-    loading() {
-      this.onLoad()
-    },
-    $route() {
-      this.loadData()
-    }
+    loading: 'onLoad',
+    $route: 'loadData'
   },
   mounted() {
     this.loadData()
@@ -349,12 +360,11 @@ export default {
         })
         .finally(() => (this.loading = false))
     },
-    editUser() {
-      var confirm = window.confirm('Are you sure want to update user data?')
-      if (!confirm) {
+    updateModalAgree(approveEditAgree) {
+      this.updateModalShow = false
+      if (!approveEditAgree) {
         return
       }
-
       this.loading = true
       axios
         .patch(`users/${this.user.id}`, {
@@ -369,6 +379,9 @@ export default {
           this.errored = true
         })
         .finally(() => (this.loading = false))
+    },
+    editUser() {
+      this.updateModalShow = true
     },
     validateBeforeSubmit() {
       this.$validator.validateAll().then(valid => {
@@ -399,5 +412,12 @@ export default {
 }
 textarea.form-control {
   min-height: 100px;
+}
+h5 {
+  margin: 0;
+  padding: 0;
+}
+.modal-body {
+  font-size: 20px;
 }
 </style>

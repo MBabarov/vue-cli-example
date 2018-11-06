@@ -17,7 +17,7 @@
       @currentUsersAmount="onCurrentUsersAmount" />
     <Paginator
       v-show="!smartUserLoading"
-      :show-at-once="currentRange"
+      :current-range="currentRange"
       :amount="currentUsersAmount"
       @loading="onLoadPaginator"
       @currentStep="onCurrentStep" />
@@ -59,7 +59,7 @@ export default {
       this.loadingPaginator = loading
     },
     onCurrentRange(range) {
-      this.currentRange = range
+      this.currentRange = Number(range)
     },
     onLoadUsersList(loading) {
       this.loadingUsersList = loading

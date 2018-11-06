@@ -8,7 +8,7 @@
           <a
             href="#"
             class="page-link"
-            @click="onCurrentStep(currentStep-1, $event)">Previous</a>
+            @click.prevent.stop="onCurrentStep(currentStep-1)">Previous</a>
         </li>
         <li
           v-for="step in countSteps"
@@ -18,7 +18,7 @@
           <a
             href="#"
             class="page-link"
-            @click="onCurrentStep(step, $event)">{{ step }}</a>
+            @click.prevent.stop="onCurrentStep(step)">{{ step }}</a>
         </li>
         <li
           :class="{disabled: lastStep}"
@@ -26,7 +26,7 @@
           <a
             href="#"
             class="page-link"
-            @click="onCurrentStep(currentStep+1, $event)">Next</a>
+            @click.prevent.stop="onCurrentStep(currentStep+1)">Next</a>
         </li>
       </ul>
     </nav>
@@ -41,8 +41,8 @@ export default {
       type: Number,
       required: true
     },
-    'show-at-once': {
-      type: [Number, String],
+    'current-range': {
+      type: Number,
       required: true
     }
   },
@@ -53,20 +53,17 @@ export default {
   },
   computed: {
     countSteps() {
-      if (this.amount && this.showAtOnce) {
-        return Math.ceil(this.amount / this.showAtOnce)
-      }
-      return 1
+      return this.amount && this.currentRange ? Math.ceil(this.amount / this.currentRange) : 1
     },
     fistStep() {
-      return this.currentStep == 1 ? true : false
+      return this.currentStep == 1
     },
     lastStep() {
-      return this.currentStep == this.countSteps ? true : false
+      return this.currentStep == this.countSteps
     }
   },
   watch: {
-    showAtOnce() {
+    currentRange() {
       this.onCurrentStep(1)
     },
     amount() {
@@ -77,8 +74,7 @@ export default {
     this.onCurrentStep(this.currentStep)
   },
   methods: {
-    onCurrentStep(step, event) {
-      event && event.preventDefault()
+    onCurrentStep(step) {
       this.currentStep = step
       this.$emit('currentStep', step)
     }

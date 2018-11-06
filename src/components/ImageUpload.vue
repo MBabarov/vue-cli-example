@@ -3,18 +3,18 @@
     ref="imagezone">
     <p>
       <img
-        v-show="loading"
+        v-if="loading"
         class="img-loading"
         src="../assets/image-loading.gif">
       <img
-        v-show="!loading"
+        v-else
         :src="picture"
         class="img-thumbnail" >
     </p>
     <div class="column">
       <div class="col-md-12">
         <input
-          v-model="picture"
+          :value="picture"
           type="text"
           class="form-control"
           readonly >
@@ -26,6 +26,7 @@
           class="hidden"
           @change="upload" >
         <button
+          type="button"
           class="btn btn-primary btn-block"
           @click="selectNewImage">Upload image</button>
       </div>

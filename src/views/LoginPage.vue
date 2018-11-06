@@ -6,6 +6,7 @@
       <div class="container">
         <div class="login">
           <button
+            type="button"
             class="btn btn-primary"
             @click="login"
           >Login</button>
@@ -18,12 +19,13 @@
 
 <script>
 import * as auth from '@/auth'
+
 export default {
   name: 'LoginPage',
   methods: {
     login() {
-      auth.loggedIn()
-      this.$router.push('/')
+      auth.setToken()
+      this.$router.push(this.$router.history.current.query.redirect)
     }
   }
 }

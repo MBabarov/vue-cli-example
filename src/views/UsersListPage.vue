@@ -39,4 +39,7 @@ export default {
 .main {
   margin-top: 100px;
 }
+.jumbotron {
+  margin-bottom: 0;
+}
 </style>

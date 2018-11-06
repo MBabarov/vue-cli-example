@@ -46,7 +46,57 @@
         </tr>
       </tbody>
     </table>
-    <p class="total-block">Total: {{ usersList.length }} users</p>
+    <p class="total-block">Total: {{ filteredUsersListBySearch.length || usersList.length }} users</p>
+    <Modal
+      :modal-show="deleteModalShow"
+      @onAgree="deleteModalAgree">
+      <h5 slot="title">
+        Delete user profile
+      </h5>
+      <p
+        slot="body"
+        class="modal-body">
+        Are you sure want to delete {{ deleteUserData.firstName }} {{ deleteUserData.lastName }}?
+      </p>
+      <template 
+        slot="footer" 
+        slot-scope="{ onAgree }">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          @click="onAgree(false)">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          @click="onAgree(true)">
+          Delete
+        </button>
+      </template>
+    </Modal>
+    <Modal
+      :modal-show="successfulDeleteModalShow"
+      @onAgree="succesfulDeleteModalAgree">
+      <h5 slot="title">
+        Delete user profile
+      </h5>
+      <p
+        slot="body"
+        class="modal-body">
+        {{ deleteUserData.firstName }} {{ deleteUserData.lastName }} was deleted successfully
+      </p>
+      <template 
+        slot="footer" 
+        slot-scope="{ onAgree }">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          @click="onAgree(false)">
+          Ok
+        </button>
+      </template>
+    </Modal>
   </div>
 </template>
 
@@ -55,23 +105,28 @@ import axios from '@/axios'
 
 export default {
   name: 'UsersList',
+  components: {
+    Modal: () => import('@/components/Modal')
+  },
   props: {
     currentUsersListByRange: {
       type: Array,
-      default: null,
-      required: false
+      default: []
     },
     filteredUsersListBySearch: {
       type: Array,
-      default: null,
-      required: false
+      default: []
     }
   },
   data() {
     return {
       usersList: [],
       currentUsersAmount: 0,
-      loading: true
+      loading: true,
+      deleteUserData: {},
+      deleteModalShow: false,
+      successfulDeleteModalShow: false,
+      approveUserDelete: null
     }
   },
   computed: {
@@ -102,7 +157,7 @@ export default {
         .get('users')
         .then(response => {
           this.usersList = response.data
-          this.currentUsersAmount = Object.assign([], this.usersList).length
+          this.currentUsersAmount = response.data.length
           this.onCurrentUsersAmount()
           this.onUsersList()
         })
@@ -112,19 +167,20 @@ export default {
         })
         .finally(() => (this.loading = false))
     },
-    deleteUser(user) {
-      var confirm = window.confirm(`
-        Are you sure want to delete ${user.firstName} ${user.lastName}?
-      `)
-      if (!confirm) {
+    succesfulDeleteModalAgree() {
+      this.successfulDeleteModalShow = false
+      this.loadUsersList()
+    },
+    deleteModalAgree(approveDeleteAgree) {
+      this.deleteModalShow = false
+      if (!approveDeleteAgree) {
         return
       }
       this.loading = true
       axios
-        .delete(`users/${user.id}`)
+        .delete(`users/${this.deleteUserData.id}`)
         .then(() => {
-          alert(`${user.firstName} ${user.lastName} was deleted successfully`)
-          this.loadUsersList()
+          this.successfulDeleteModalShow = true
         })
         .catch(error => {
           console.log(error)
@@ -132,6 +188,10 @@ export default {
           this.errored = true
         })
         .finally(() => (this.loading = false))
+    },
+    deleteUser(user) {
+      this.deleteUserData = user
+      this.deleteModalShow = true
     },
     onCurrentUsersAmount() {
       const amount =
@@ -176,5 +236,12 @@ a:hover {
 .total-block {
   font-weight: 600;
   text-align: left;
+}
+h5 {
+  margin: 0;
+  padding: 0;
+}
+.modal-body {
+  font-size: 20px;
 }
 </style>

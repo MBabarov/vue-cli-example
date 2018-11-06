@@ -1,11 +1,11 @@
 import axios from 'axios'
-import { getToken } from '@/auth'
+import * as auth from '@/auth'
 
 const instance = axios.create({
   baseURL: 'http://localhost:3004/',
   timeout: 1000,
   headers: {
-    Authorization: `Bearer ${getToken()}`
+    Authorization: `Bearer ${auth.loggedIn()}`
   }
 })
 

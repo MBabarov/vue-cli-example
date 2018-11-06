@@ -69,26 +69,82 @@
             Edit user
           </router-link>
           <button
-            align="left"
+            type="button"
             class="btn btn-primary"
             @click="deleteCurrentUser">
             Delete user
           </button>
         </div>
       </div>
+      <Modal
+        :modal-show="deleteModalShow"
+        @onAgree="deleteModalAgree">
+        <h5 slot="title">
+          Delete user profile
+        </h5>
+        <p
+          slot="body"
+          class="modal-body">
+          Are you sure want to delete {{ currentUser.firstName }} {{ currentUser.lastName }}?
+        </p>
+        <template
+          slot="footer"
+          slot-scope="{ onAgree }">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            @click="onAgree(false)">
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            @click="onAgree(true)">
+            Delete
+          </button>
+        </template>
+      </Modal>
+      <Modal
+        :modal-show="successfulDeleteModalShow"
+        @onAgree="succesfulDeleteModalAgree">
+        <h5 slot="title">
+          Delete user profile
+        </h5>
+        <p
+          slot="body"
+          class="modal-body">
+          {{ currentUser.firstName }} {{ currentUser.lastName }} was deleted successfully
+        </p>
+        <template
+          slot="footer"
+          slot-scope="{ onAgree }">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            @click="onAgree(false)">
+            Ok
+          </button>
+        </template>
+      </Modal>
     </div>
   </div>
 </template>
-
 <script>
 import axios from '@/axios'
 
 export default {
   name: 'CurrentUser',
+  components: {
+    Modal: () => import('@/components/Modal')
+  },
   data() {
     return {
       currentUser: null,
-      loading: true
+      loading: true,
+      deleteUserData: {},
+      deleteModalShow: false,
+      successfulDeleteModalShow: false,
+      approveUserDelete: null
     }
   },
   computed: {
@@ -97,12 +153,8 @@ export default {
     }
   },
   watch: {
-    loading() {
-      this.onLoad()
-    },
-    $route() {
-      this.loadUser()
-    }
+    loading: 'onLoad',
+    $route: 'loadUser'
   },
   mounted() {
     this.loadUser()
@@ -124,26 +176,29 @@ export default {
         })
         .finally(() => (this.loading = false))
     },
-    deleteCurrentUser() {
-      var confirm = window.confirm(`
-        Are you sure want to delete ${this.currentUser.firstName} ${this.currentUser.lastName}?
-      `)
-      if (confirm) {
-        this.loading = true
-        axios
-          .delete(`http://localhost:3004/users/${this.id}`)
-          .then(() => {
-            alert(`
-              ${this.currentUser.firstName} ${this.currentUser.lastName} was deleted successfully
-            `)
-            this.$router.push('/')
-          })
-          .catch(error => {
-            console.log(error)
-            this.errored = true
-          })
-          .finally(() => (this.loading = false))
+    succesfulDeleteModalAgree() {
+      this.successfulDeleteModalShow = false
+      this.$router.push('/')
+    },
+    deleteModalAgree(approveDeleteAgree) {
+      this.deleteModalShow = false
+      if (!approveDeleteAgree) {
+        return
       }
+      this.loading = true
+      axios
+        .delete(`users/${this.id}`)
+        .then(() => {
+          this.successfulDeleteModalShow = true
+        })
+        .catch(error => {
+          console.log(error)
+          this.errored = true
+        })
+        .finally(() => (this.loading = false))
+    },
+    deleteCurrentUser() {
+      this.deleteModalShow = true
     }
   }
 }
@@ -153,5 +208,16 @@ export default {
 <style scoped>
 .btn {
   margin-right: 20px;
+}
+h5 {
+  margin: 0;
+  padding: 0;
+}
+.modal-body {
+  font-size: 20px;
+}
+img {
+  max-height: 130px;
+  max-width: 100%;
 }
 </style>

@@ -4,7 +4,7 @@
       "id": 16,
       "isActive": true,
       "balance": "$2,436.21",
-      "picture": "http://placehold.it/128x128",
+      "picture": "https://i.imgur.com/BCo8ULP.jpg",
       "age": "11",
       "accessLevel": "admin",
       "firstName": "Stacy",
@@ -14,7 +14,7 @@
       "phone": "+7 (955) 555-2395",
       "address": "130 Crown Street, Muse, Alabama, 5492",
       "about": "<p>Veniam sunt ullamco anim magna tempor. Minim ut commodo magna nostrud ex laboris do tempor ex. Ullamco officia dolore magna enim aliquip elit. Irure tempor est voluptate non elit labore. Enim minim nisi incididunt nostrud Lorem anim. <strong>Ex mollit amet nulla fugiat. Magna do cupidatat fugiat non do ea elit deserunt est ipsum laboris nulla enim mollit</strong>  </p>",
-      "registered": "07.07.2017"
+      "registered": "31.07.2017"
     },
     {
       "id": 17,
@@ -61,30 +61,14 @@
       "email": "benson.pope@daisu.io",
       "phone": "+7 (839) 468-2021",
       "address": "345 Garden Street, Gibbsville, Indiana, 7499",
-      "about": "Elit elit sit cillum culpa voluptate mollit consequat. Reprehenderit ullamco voluptate aute voluptate velit dolor. Pariatur anim magna reprehenderit deserunt duis et ex incididunt nisi nostrud esse.",
+      "about": "<p>Elit elit sit cillum culpa voluptate mollit consequat. Reprehenderit ullamco voluptate aute voluptate velit dolor. Pariatur anim magna reprehenderit deserunt duis et ex incididunt nisi nostrud esse</p>",
       "registered": "18.05.2018"
-    },
-    {
-      "id": 20,
-      "isActive": false,
-      "balance": "$2,191.16",
-      "picture": "https://i.imgur.com/QGrvQ18.jpg",
-      "age": 30,
-      "accessLevel": "guest",
-      "firstName": "Chrystal",
-      "lastName": "Campbell",
-      "company": "GONKLE",
-      "email": "chrystal.campbell@gonkle.name",
-      "phone": "+7 (965) 551-2643",
-      "address": "631 Clifton Place, Tilden, Vermont, 939",
-      "about": "Magna fugiat commodo ex amet culpa aute deserunt. Irure quis incididunt id consequat. Ut velit culpa ad enim elit excepteur Lorem eu esse amet adipisicing laborum irure do.",
-      "registered": "31.01.2014"
     },
     {
       "id": 21,
       "isActive": false,
       "balance": "$3,947.13",
-      "picture": "http://placehold.it/128x128",
+      "picture": "https://i.imgur.com/gpOWsx5.jpg",
       "age": 35,
       "accessLevel": "user",
       "firstName": "Francisca",
@@ -93,7 +77,7 @@
       "email": "francisca.jacobs@locazone.biz",
       "phone": "+7 (952) 452-3700",
       "address": "885 Berkeley Place, Jessie, Maryland, 9189",
-      "about": "Incididunt reprehenderit commodo deserunt nostrud culpa ea veniam commodo ut elit anim laboris nulla veniam. Duis in incididunt nulla ullamco reprehenderit laborum adipisicing in dolore. Eu irure sunt velit proident sit nostrud nulla enim sunt ea anim dolor.",
+      "about": "<p>Incididunt reprehenderit commodo deserunt nostrud culpa ea veniam commodo ut elit anim laboris nulla veniam. Duis in incididunt nulla ullamco reprehenderit laborum adipisicing in dolore. Eu irure sunt velit proident sit nostrud nulla enim sunt ea anim dolor</p>",
       "registered": "03.09.2017"
     },
     {
@@ -253,7 +237,7 @@
       "email": "elisabeth.morin@netility.io",
       "phone": "+7 (802) 499-3300",
       "address": "488 Schenck Avenue, Hollins, Mississippi, 7341",
-      "about": "In do sit duis non et ad aliquip tempor adipisicing reprehenderit ullamco excepteur Lorem ut. Dolor ex dolore consectetur sunt officia aute do labore eu ipsum irure quis irure quis. Sit eu ex enim anim laboris velit consequat fugiat commodo dolor culpa. Esse sunt eu ipsum nulla in reprehenderit sit aliqua veniam. Adipisicing ipsum laborum et fugiat nulla consectetur do velit sit proident eiusmod. Veniam excepteur pariatur ex est.",
+      "about": "<p>In do sit duis non et ad aliquip tempor adipisicing reprehenderit ullamco excepteur Lorem ut. Dolor ex dolore consectetur sunt officia aute do labore eu ipsum irure quis irure quis. Sit eu ex enim anim laboris velit consequat fugiat commodo dolor culpa. Esse sunt eu ipsum nulla in reprehenderit sit aliqua veniam. Adipisicing ipsum laborum et fugiat nulla consectetur do velit sit proident eiusmod. Veniam excepteur pariatur ex est.</p>",
       "registered": "06.07.2018"
     },
     {

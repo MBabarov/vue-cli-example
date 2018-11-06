@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import utils from '@/utils'
+import * as utils from '@/utils'
 
 export default {
   name: 'SearchFilter',
@@ -39,9 +39,7 @@ export default {
     }
   },
   watch: {
-    usersList() {
-      this.onFilteredUsersListBySearch()
-    }
+    usersList: 'onFilteredUsersListBySearch'
   },
   methods: {
     onFilteredUsersListBySearch() {
