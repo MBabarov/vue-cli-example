@@ -31,10 +31,8 @@
               </div>
             </div>
           </div>
-          <Loading v-show="userDataLoading" />
-          <CurrentUser
-            v-show="!userDataLoading"
-            @loading="onLoadUserData"/>
+          <Loading v-show="loading" />
+          <CurrentUser v-show="!loading" />
         </div>
       </div>
     </section>
@@ -43,21 +41,18 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'UserPage',
   components: {
     Loading: () => import('@/components/Loading'),
     CurrentUser: () => import('@/components/CurrentUser')
   },
-  data() {
-    return {
-      userDataLoading: true
-    }
-  },
-  methods: {
-    onLoadUserData(loading) {
-      this.userDataLoading = loading
-    }
+  computed: {
+    ...mapState({
+      loading: state => state.loading
+    })
   }
 }
 </script>

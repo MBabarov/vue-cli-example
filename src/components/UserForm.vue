@@ -269,8 +269,9 @@
 </template>
 
 <script>
-import axios from '@/axios'
+import { mapState } from 'vuex'
 import { VueEditor } from 'vue2-editor'
+
 export default {
   name: 'UserForm',
   components: {
@@ -283,7 +284,6 @@ export default {
     return {
       user: null,
       formSubmitted: false,
-      loading: true,
       customToolbarForEditor: [
         ['bold', 'italic', 'underline'],
         [{ list: 'ordered' }, { list: 'bullet' }],
@@ -293,6 +293,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      loading: state => state.loading
+    }),
     titleFormButton() {
       return this.$route.name === 'new-user' ? 'Create new user profile' : 'Update user profile'
     },
@@ -331,54 +334,26 @@ export default {
         address: '',
         picture: 'http://placehold.it/128x128'
       }
-      this.loading = false
+      this.$store.dispatch('updateLoadingStatus', false)
     },
     loadUser() {
-      this.loading = true
-      axios
-        .get(`users/${this.id}`)
-        .then(response => {
-          this.user = response.data
-        })
-        .catch(error => {
-          console.log(error)
-        })
-        .finally(() => (this.loading = false))
+      this.$store.dispatch('loadUser', this.id).then(response => {
+        this.user = response.data
+      })
     },
     createUser() {
-      this.loading = true
-      axios
-        .post('users/', {
-          ...this.user
-        })
-        .then(() => {
-          this.$router.back()
-        })
-        .catch(error => {
-          console.log(error)
-          this.errored = true
-        })
-        .finally(() => (this.loading = false))
+      this.$store.dispatch('createUser', this.user).then(() => {
+        this.$router.back()
+      })
     },
     updateModalAgree(approveEditAgree) {
       this.updateModalShow = false
       if (!approveEditAgree) {
         return
       }
-      this.loading = true
-      axios
-        .patch(`users/${this.user.id}`, {
-          ...this.user
-        })
-        .then(() => {
-          this.$router.back()
-        })
-        .catch(error => {
-          console.log(error)
-          alert(error)
-          this.errored = true
-        })
-        .finally(() => (this.loading = false))
+      this.$store.dispatch('updateUser', this.user).then(() => {
+        this.$router.back()
+      })
     },
     editUser() {
       this.updateModalShow = true

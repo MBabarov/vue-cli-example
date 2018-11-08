@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import axios from '@/axios'
+import { mapState } from 'vuex'
 
 export default {
   name: 'UsersList',
@@ -111,25 +111,27 @@ export default {
   props: {
     currentUsersListByRange: {
       type: Array,
-      default: []
+      default: () => []
     },
     filteredUsersListBySearch: {
       type: Array,
-      default: []
+      default: () => []
     }
   },
   data() {
     return {
-      usersList: [],
-      currentUsersAmount: 0,
-      loading: true,
       deleteUserData: {},
       deleteModalShow: false,
-      successfulDeleteModalShow: false,
-      approveUserDelete: null
+      approveUserDelete: null,
+      successfulDeleteModalShow: false
     }
   },
   computed: {
+    ...mapState({
+      loading: state => state.loading,
+      usersList: state => state.usersList,
+      currentUsersAmount: state => state.currentUsersAmount
+    }),
     currentUsersList() {
       return this.currentUsersListByRange || this.filteredUsersListBySearch || this.usersList
     }
@@ -149,23 +151,12 @@ export default {
   },
   methods: {
     onLoad() {
+      this.onCurrentUsersAmount()
+      this.onUsersList()
       this.$emit('loading', this.loading)
     },
     loadUsersList() {
-      this.loading = true
-      return axios
-        .get('users')
-        .then(response => {
-          this.usersList = response.data
-          this.currentUsersAmount = response.data.length
-          this.onCurrentUsersAmount()
-          this.onUsersList()
-        })
-        .catch(error => {
-          console.log(error)
-          this.errored = true
-        })
-        .finally(() => (this.loading = false))
+      this.$store.dispatch('loadUsers')
     },
     succesfulDeleteModalAgree() {
       this.successfulDeleteModalShow = false
@@ -176,18 +167,9 @@ export default {
       if (!approveDeleteAgree) {
         return
       }
-      this.loading = true
-      axios
-        .delete(`users/${this.deleteUserData.id}`)
-        .then(() => {
-          this.successfulDeleteModalShow = true
-        })
-        .catch(error => {
-          console.log(error)
-          alert(error)
-          this.errored = true
-        })
-        .finally(() => (this.loading = false))
+      this.$store.dispatch('deleteUser', this.deleteUserData.id).then(() => {
+        this.successfulDeleteModalShow = true
+      })
     },
     deleteUser(user) {
       this.deleteUserData = user

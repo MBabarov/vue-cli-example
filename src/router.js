@@ -17,9 +17,9 @@ const router = new Router({
       }
     },
     {
-      path: '/phone-mode',
-      name: 'phone-mode',
-      component: () => import('@/views/UsersListPhoneModePage'),
+      path: '/phonebook',
+      name: 'phonebook',
+      component: () => import('@/views/Phonebook'),
       meta: {
         requiresAuth: false
       }

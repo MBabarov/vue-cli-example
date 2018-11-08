@@ -31,11 +31,10 @@
               </div>
             </div>
           </div>
-          <Loading v-show="userFormLoading" />
+          <Loading v-show="loading" />
           <UserForm
-            v-show="!userFormLoading"
-            :id="id"
-            @loading="onLoadUserForm" />
+            v-show="!loading"
+            :id="id" />
         </div>
       </div>
     </section>
@@ -44,6 +43,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'EditUserPage',
   components: {
@@ -56,15 +57,10 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      userFormLoading: true
-    }
-  },
-  methods: {
-    onLoadUserForm(loading) {
-      this.userFormLoading = loading
-    }
+  computed: {
+    ...mapState({
+      loading: state => state.loading
+    })
   }
 }
 </script>

@@ -12,19 +12,19 @@
     <UsersList
       :current-users-list-by-range="currentUsersListByRange"
       :filtered-users-list-by-search="filteredUsersListBySearch"
-      @loading="onLoadUsersList"
       @usersList="onUsersList"
       @currentUsersAmount="onCurrentUsersAmount" />
     <Paginator
-      v-show="!smartUserLoading"
+      v-show="!loading"
       :current-range="currentRange"
       :amount="currentUsersAmount"
-      @loading="onLoadPaginator"
       @currentStep="onCurrentStep" />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'UsersListPage',
   components: {
@@ -41,28 +41,20 @@ export default {
       usersList: [],
       filteredUsersListBySearch: [],
       currentUsersListByRange: [],
-      searchFilter: '',
-      loadingUsersList: true
+      searchFilter: ''
     }
   },
   computed: {
-    smartUserLoading() {
-      this.$emit('loading', this.loadingUsersList)
-      return this.loadingUsersList
-    }
+    ...mapState({
+      loading: state => state.loading
+    })
   },
   methods: {
     onCurrentStep(step) {
       this.currentStep = step
     },
-    onLoadPaginator(loading) {
-      this.loadingPaginator = loading
-    },
     onCurrentRange(range) {
       this.currentRange = Number(range)
-    },
-    onLoadUsersList(loading) {
-      this.loadingUsersList = loading
     },
     onUsersList(usersList) {
       this.usersList = usersList

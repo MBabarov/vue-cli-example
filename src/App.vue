@@ -33,9 +33,9 @@
             <router-link
               tag="li"
               class="nav-item"
-              to="/phone-mode">
+              to="/phonebook">
               <a class="nav-link">
-                Users List (phone mode)
+                Phonebook
               </a>
             </router-link>
             <router-link

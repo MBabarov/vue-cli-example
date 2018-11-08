@@ -130,7 +130,7 @@
   </div>
 </template>
 <script>
-import axios from '@/axios'
+import { mapState } from 'vuex'
 
 export default {
   name: 'CurrentUser',
@@ -140,14 +140,15 @@ export default {
   data() {
     return {
       currentUser: null,
-      loading: true,
       deleteUserData: {},
       deleteModalShow: false,
-      successfulDeleteModalShow: false,
-      approveUserDelete: null
+      successfulDeleteModalShow: false
     }
   },
   computed: {
+    ...mapState({
+      loading: state => state.loading
+    }),
     id() {
       return Number(this.$route.params.id)
     }
@@ -164,17 +165,9 @@ export default {
       this.$emit('loading', this.loading)
     },
     loadUser() {
-      this.loading = true
-      axios
-        .get(`users/${this.id}`)
-        .then(response => {
-          this.currentUser = response.data
-        })
-        .catch(error => {
-          console.log(error)
-          this.errored = true
-        })
-        .finally(() => (this.loading = false))
+      this.$store.dispatch('loadUser', this.id).then(response => {
+        this.currentUser = response.data
+      })
     },
     succesfulDeleteModalAgree() {
       this.successfulDeleteModalShow = false
@@ -185,17 +178,9 @@ export default {
       if (!approveDeleteAgree) {
         return
       }
-      this.loading = true
-      axios
-        .delete(`users/${this.id}`)
-        .then(() => {
-          this.successfulDeleteModalShow = true
-        })
-        .catch(error => {
-          console.log(error)
-          this.errored = true
-        })
-        .finally(() => (this.loading = false))
+      this.$store.dispatch('deleteUser', this.id).then(() => {
+        this.successfulDeleteModalShow = true
+      })
     },
     deleteCurrentUser() {
       this.deleteModalShow = true

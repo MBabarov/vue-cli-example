@@ -5,11 +5,10 @@
       class="main">
       <section class="jumbotron text-center">
         <div class="container">
-          <h1 align="canter">Users list (phone mode)</h1>
-          <Loading v-show="isLoading" />
+          <h1 align="canter">Phonebook</h1>
+          <Loading v-show="loading" />
           <div
-            v-show="!isLoading"
-            @loading="onLoadUsersList">
+            v-show="!loading">
             <SelectOfQuantity
               :range="[5,10,15]"
               :users-list="filteredUsersListBySearch"
@@ -22,7 +21,6 @@
             <UsersList
               :current-users-list-by-range="currentUsersListByRange"
               :filtered-users-list-by-search="filteredUsersListBySearch"
-              @loading="onLoadUsersList"
               @usersList="onUsersList"
               @currentUsersAmount="onCurrentUsersAmount">
               <template slot="header-phone-mode">
@@ -39,7 +37,7 @@
               </template>
             </UsersList>
             <Paginator
-              :show-at-once="currentRange"
+              :current-range="currentRange"
               :amount="currentUsersAmount"
               @currentStep="onCurrentStep" />
           </div>
@@ -50,8 +48,10 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  name: 'UsersListPage',
+  name: 'UsersListPageByPhone',
   components: {
     Loading: () => import('@/components/Loading'),
     UsersList: () => import('@/components/UsersList'),
@@ -61,7 +61,6 @@ export default {
   },
   data() {
     return {
-      isLoading: true,
       currentUsersAmount: 0,
       currentRange: 0,
       currentStep: 1,
@@ -71,15 +70,17 @@ export default {
       searchFilter: ''
     }
   },
+  computed: {
+    ...mapState({
+      loading: state => state.loading
+    })
+  },
   methods: {
-    onLoadUsersList(loading) {
-      this.isLoading = loading
-    },
     onCurrentStep(step) {
       this.currentStep = step
     },
     onCurrentRange(range) {
-      this.currentRange = range
+      this.currentRange = Number(range)
     },
     onUsersList(usersList) {
       this.usersList = usersList

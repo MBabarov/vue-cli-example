@@ -15,10 +15,9 @@
               <h1>Create new user profile</h1>
             </div>
           </div>
-          <Loading v-show="userFormLoading" />
+          <Loading v-show="loading" />
           <UserForm
-            v-show="!userFormLoading"
-            @loading="onLoadUserForm" />
+            v-show="!loading" />
         </div>
       </div>
     </section>
@@ -27,21 +26,18 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'NewUserPage',
   components: {
     Loading: () => import('@/components/Loading'),
     UserForm: () => import('@/components/UserForm')
   },
-  data() {
-    return {
-      userFormLoading: true
-    }
-  },
-  methods: {
-    onLoadUserForm(loading) {
-      this.userFormLoading = loading
-    }
+  computed: {
+    ...mapState({
+      loading: state => state.loading
+    })
   }
 }
 </script>

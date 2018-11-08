@@ -5,6 +5,8 @@
     <section class="jumbotron text-center">
       <div class="container">
         <div class="login">
+          <h2>This is mock page</h2>
+          <h5>Login adds token in local storage</h5>
           <button
             type="button"
             class="btn btn-primary"

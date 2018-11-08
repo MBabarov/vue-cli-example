@@ -6,10 +6,8 @@
       <section class="jumbotron text-center">
         <div class="container">
           <h1 align="canter">Users list</h1>
-          <Loading v-show="smartUserLoading" />
-          <SmartUsersList
-            v-show="!smartUserLoading"
-            @loading="onLoadSmartUser" />
+          <Loading v-show="loading" />
+          <SmartUsersList v-show="!loading" />
         </div>
       </section>
     </main>
@@ -17,21 +15,18 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'UsersListPage',
   components: {
     Loading: () => import('@/components/Loading'),
     SmartUsersList: () => import('@/components/SmartUsersList')
   },
-  data: function() {
-    return {
-      smartUserLoading: true
-    }
-  },
-  methods: {
-    onLoadSmartUser(loading) {
-      this.smartUserLoading = loading
-    }
+  computed: {
+    ...mapState({
+      loading: state => state.loading
+    })
   }
 }
 </script>
