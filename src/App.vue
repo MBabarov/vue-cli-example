@@ -4,10 +4,12 @@
       <nav
         id="nav"
         class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <img
-          src="./assets/logo.png"
-          class="logo"
-          alt="Vue logo">
+        <router-link to="/">
+          <img
+            src="./assets/logo.png"
+            class="logo"
+            alt="Vue logo">
+        </router-link>
         <button
           class="navbar-toggler"
           type="button"
