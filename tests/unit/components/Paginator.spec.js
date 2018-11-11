@@ -18,9 +18,9 @@ describe('Paginator.vue', () => {
         currentRange: 5
       }
     })
-    wrapper.setData({currentStep: 2})
+    wrapper.setData({ currentStep: 2 })
     expect(wrapper.vm.currentStep).toBe(2)
-    wrapper.setProps({currentRange: 2})
+    wrapper.setProps({ currentRange: 2 })
     expect(wrapper.vm.currentStep).toBe(1)
   })
   it('currentStep should update to 1 if amount was updated', () => {
@@ -30,9 +30,9 @@ describe('Paginator.vue', () => {
         currentRange: 5
       }
     })
-    wrapper.setData({currentStep: 2})
+    wrapper.setData({ currentStep: 2 })
     expect(wrapper.vm.currentStep).toBe(2)
-    wrapper.setProps({amount: 2})
+    wrapper.setProps({ amount: 2 })
     expect(wrapper.vm.currentStep).toBe(1)
   })
 })

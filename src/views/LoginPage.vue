@@ -27,7 +27,7 @@ export default {
   methods: {
     login() {
       auth.setToken()
-      this.$router.push(this.$router.history.current.query.redirect)
+      this.$router.push(this.$route.query.redirect)
     }
   }
 }

@@ -20,8 +20,7 @@ export default {
   props: {
     range: {
       type: Array,
-      default: () => [5, 10, 20],
-      required: false
+      default: () => [5, 10, 20]
     },
     currentStep: {
       type: Number,
@@ -38,6 +37,14 @@ export default {
       filteredUsersListByRange: []
     }
   },
+  computed: {
+    startRange() {
+      return this.currentStep > 1 ? this.currentRange * (this.currentStep - 1) : 0
+    },
+    endRange() {
+      return this.currentStep > 1 ? this.currentRange * this.currentStep : this.currentRange
+    }
+  },
   watch: {
     usersList: 'onCurrentUsersListByRange',
     currentStep: 'onCurrentUsersListByRange'
@@ -52,9 +59,7 @@ export default {
       this.onCurrentUsersListByRange()
     },
     onCurrentUsersListByRange() {
-      const start = this.currentStep > 1 ? this.currentRange * (this.currentStep - 1) : 0
-      const end = this.currentStep > 1 ? this.currentRange * this.currentStep : this.currentRange
-      this.currentUsersListByRange = this.usersList.slice(start, end)
+      this.currentUsersListByRange = this.usersList.slice(this.startRange, this.endRange)
       this.$emit('currentUsersListByRange', this.currentUsersListByRange)
     }
   }

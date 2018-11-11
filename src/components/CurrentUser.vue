@@ -140,7 +140,6 @@ export default {
   data() {
     return {
       currentUser: null,
-      deleteUserData: {},
       deleteModalShow: false,
       successfulDeleteModalShow: false
     }

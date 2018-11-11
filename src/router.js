@@ -11,26 +11,17 @@ const router = new Router({
     {
       path: '/',
       name: 'users-list',
-      component: () => import('@/views/UsersListPage'),
-      meta: {
-        requiresAuth: false
-      }
+      component: () => import('@/views/UsersListPage')
     },
     {
       path: '/phonebook',
       name: 'phonebook',
-      component: () => import('@/views/Phonebook'),
-      meta: {
-        requiresAuth: false
-      }
+      component: () => import('@/views/Phonebook')
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/views/LoginPage'),
-      meta: {
-        requiresAuth: false
-      }
+      component: () => import('@/views/LoginPage')
     },
 
     {
@@ -63,7 +54,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth) && !auth.loggedIn()) {
+  if (to.matched.some(record => record.meta.requiresAuth) && !auth.getToken()) {
     next({
       path: '/login',
       query: { redirect: to.fullPath }

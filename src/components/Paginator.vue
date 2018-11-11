@@ -8,7 +8,7 @@
           <a
             href="#"
             class="page-link"
-            @click.prevent.stop="onCurrentStep(currentStep-1)">Previous</a>
+            @click.prevent="onCurrentStep(currentStep-1)">Previous</a>
         </li>
         <li
           v-for="step in countSteps"
@@ -18,7 +18,7 @@
           <a
             href="#"
             class="page-link"
-            @click.prevent.stop="onCurrentStep(step)">{{ step }}</a>
+            @click.prevent="onCurrentStep(step)">{{ step }}</a>
         </li>
         <li
           :class="{disabled: lastStep}"
@@ -26,7 +26,7 @@
           <a
             href="#"
             class="page-link"
-            @click.prevent.stop="onCurrentStep(currentStep+1)">Next</a>
+            @click.prevent="onCurrentStep(currentStep+1)">Next</a>
         </li>
       </ul>
     </nav>
@@ -56,10 +56,10 @@ export default {
       return this.amount && this.currentRange ? Math.ceil(this.amount / this.currentRange) : 1
     },
     fistStep() {
-      return this.currentStep == 1
+      return this.currentStep === 1
     },
     lastStep() {
-      return this.currentStep == this.countSteps
+      return this.currentStep === this.countSteps
     }
   },
   watch: {

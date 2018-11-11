@@ -23,6 +23,7 @@
               </label>
               <input
                 v-validate="'required'"
+                id="firstName"
                 v-model="user.firstName"
                 name="firstName"
                 class="form-control"
@@ -44,6 +45,7 @@
               </label>
               <input
                 v-validate="'required'"
+                id="lastName"
                 v-model="user.lastName"
                 name="lastName"
                 data-rules="required|alpha|min:3"
@@ -67,6 +69,7 @@
               </label>
               <vue-editor
                 v-validate="'required'"
+                id="about"
                 v-model="user.about"
                 :editor-toolbar="customToolbarForEditor"
                 class="vue-editor"
@@ -100,14 +103,15 @@
                   </td>
                   <td>
                     <div
-                      :class="{'has-error': errors.has('age') }"
+                      :class="{'has-error': errors.has('registered') }"
                       class="form-group">
                       <DatePicker
                         v-validate="'required'"
+                        id="registered"
                         v-model="user.registered"
                         name="registered" />
                       <p
-                        v-if="errors.has('age')"
+                        v-if="errors.has('registered')"
                         class="text-danger">{{ errors.first('registered') }}</p>
                     </div>
                   </td>
@@ -126,6 +130,7 @@
                       class="form-group">
                       <input
                         v-validate="'required'"
+                        id="age"
                         v-model="user.age"
                         name="age"
                         data-rules="required|number"
@@ -150,6 +155,7 @@
                       class="form-group" >
                       <input
                         v-validate="'required'"
+                        id="company"
                         v-model="user.company"
                         name="company"
                         data-rules="required"
@@ -174,6 +180,7 @@
                       class="form-group" >
                       <input
                         v-validate="'required'"
+                        id="email"
                         v-model="user.email"
                         name="email"
                         data-rules="required|email"
@@ -198,6 +205,7 @@
                       class="form-group">
                       <input
                         v-validate="'required'"
+                        id="phone"
                         v-model="user.phone"
                         name="phone"
                         data-rules="required|phone"
@@ -222,6 +230,7 @@
                       class="form-group">
                       <input
                         v-validate="'required'"
+                        id="address"
                         v-model="user.address"
                         name="address"
                         data-rules="required|address"

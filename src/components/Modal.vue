@@ -58,8 +58,7 @@ export default {
   props: {
     modalShow: {
       type: Boolean,
-      default: false,
-      required: false
+      default: false
     }
   },
   methods: {
